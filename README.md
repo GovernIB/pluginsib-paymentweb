@@ -1,2 +1,1 @@
 # pluginsib-paymentweb
-pluginsib-paymentweb
