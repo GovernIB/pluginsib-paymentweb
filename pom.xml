@@ -5,7 +5,7 @@
   <artifactId>pluginsib-paymentweb</artifactId>
   <version>2.0.0</version>
   <packaging>pom</packaging>
-  <name>PluginsIB - PaymentWeb Plugins</name>
+  <name>PluginsIB - PaymentWeb</name>
   <modules>
     <module>api</module>
     <module>adyen</module>
