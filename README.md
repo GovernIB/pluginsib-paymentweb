@@ -6,6 +6,6 @@
 
 Directori | Descripció | Documentació
 ------------ | ------------- | -------------
-adyen | -- | -- 
-bbva | -- | --
-test | -- | --
+adyen | Implementació del plugin a través de la plataforma adyen | -- 
+bbva | Implementació del plugin a través de la plataforma de BBVA | --
+test | Implementació de prova | --
