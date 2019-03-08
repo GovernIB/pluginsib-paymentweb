@@ -1,24 +1,19 @@
 # ![Logo](https://github.com/GovernIB/maven/raw/binaris/pluginsib/projectinfo_Attachments/icon.jpg) pluginsib-paymentweb  (pluginsib-2.0)
+*Plugin de pagament via web*
 
-**Descripció**
+***Versions***
 
+> - Versió Estable: -
+> - Versió en Desenvolupament: __pluginsib-paymentweb-2.0__ (branca [pluginsib-paymentweb-2.0](../../tree/pluginsib-paymentweb-2.0))
 
-Repositori que conté una eina per fer pagants vía web.
+***Descripció***
 
-La versió actual d'aquest plugin és la [pluginsib-paymentweb-2.0](https://github.com/GovernIB/pluginsib-paymentweb/tree/pluginsib-paymentweb-2.0).
+Repositori que conté eines de pagament via web.
 
-
-**Implementacions**
-
-Directori | Nom | Descripció
------------- | ------------- | -------------
-adyen | -- | -- 
-bbva | -- | --
-test | -- | --
+***Documentació***
 
 
 **Enllaços**
-
 
 Plugin procedent de [pluginsib-1.0/plugins-paymentweb](https://github.com/GovernIB/pluginsib/tree/pluginsib-1.0/plugins-paymentweb).  
 
