@@ -12,6 +12,7 @@ Directori | Descripció | Documentació
 
 Directori | Descripció | Documentació
 ------------ | ------------- | -------------
+api | API de paymentweb | --
 adyen | Implementació del plugin a través de la plataforma adyen | -- 
 bbva | Implementació del plugin a través de la plataforma de BBVA | --
 test | Implementació de prova | --
