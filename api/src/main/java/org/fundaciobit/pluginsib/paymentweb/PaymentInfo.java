@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb;
+package org.fundaciobit.pluginsib.paymentweb;
 
 import java.util.Date;
 import java.util.Locale;

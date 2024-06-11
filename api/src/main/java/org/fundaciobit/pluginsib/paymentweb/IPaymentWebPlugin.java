@@ -1,20 +1,20 @@
-package org.fundaciobit.plugins.paymentweb;
+package org.fundaciobit.pluginsib.paymentweb;
 
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fundaciobit.pluginsib.core.IPlugin;
+import org.fundaciobit.pluginsib.core.v3.IPluginIB;
 
 /**
  * 
  * @author anadal
  * 
  */
-public interface IPaymentWebPlugin extends IPlugin {
+public interface IPaymentWebPlugin extends IPluginIB {
 
-  public static final String PAYMENTWEB_BASE_PROPERTY = IPLUGIN_BASE_PROPERTIES  + "paymentweb.";
+  public static final String PAYMENTWEB_BASE_PROPERTY = IPLUGINSIB_BASE_PROPERTIES  + "paymentweb.";
 
   public String getName(Locale locale) throws Exception;
   

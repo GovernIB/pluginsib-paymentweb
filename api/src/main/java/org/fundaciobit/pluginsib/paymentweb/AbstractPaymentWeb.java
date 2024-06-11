@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb;
+package org.fundaciobit.pluginsib.paymentweb;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.fundaciobit.pluginsib.core.utils.AbstractPluginProperties;
+import org.fundaciobit.pluginsib.core.v3.utils.AbstractPluginProperties;
 
 /**
  * 

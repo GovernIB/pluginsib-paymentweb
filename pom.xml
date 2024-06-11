@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fundaciobit.pluginsib.paymentweb</groupId>
   <artifactId>pluginsib-paymentweb</artifactId>
-  <version>2.0.0</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+
+  <parent>
+    <artifactId>
+			caib-artifacts-github-governib-distribution-with-jdk11-jboss72</artifactId>
+    <groupId>es.caib.maven</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
   <name>PluginsIB - PaymentWeb</name>
   <modules>
     <module>api</module>
@@ -13,10 +22,10 @@
     <module>bbva</module>
   </modules>
   <dependencies>
-		<dependency>
-      <groupId>org.fundaciobit.pluginsib.core</groupId>
+    <dependency>
+      <groupId>org.fundaciobit.pluginsib.core.v3</groupId>
       <artifactId>pluginsib-core</artifactId>
-      <version>2.0.0</version>
+      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

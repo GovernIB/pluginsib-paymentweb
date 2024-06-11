@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb.bbva;
+package org.fundaciobit.pluginsib.paymentweb.bbva;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,10 +9,10 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fundaciobit.plugins.paymentweb.AbstractPaymentWeb;
-import org.fundaciobit.plugins.paymentweb.PaymentInfo;
-import org.fundaciobit.plugins.paymentweb.PaymentStatus;
-import org.fundaciobit.plugins.paymentweb.StartPaymentResult;
+import org.fundaciobit.pluginsib.paymentweb.AbstractPaymentWeb;
+import org.fundaciobit.pluginsib.paymentweb.PaymentInfo;
+import org.fundaciobit.pluginsib.paymentweb.PaymentStatus;
+import org.fundaciobit.pluginsib.paymentweb.StartPaymentResult;
 
 import sis.redsys.api.ApiMacSha256;
 
