@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb.test;
+package org.fundaciobit.pluginsib.paymentweb.test;
 
 /**
  * 

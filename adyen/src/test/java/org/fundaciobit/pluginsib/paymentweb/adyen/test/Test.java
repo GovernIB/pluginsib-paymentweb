@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb.api.test;
+package org.fundaciobit.pluginsib.paymentweb.adyen.test;
 
 /**
  * 
