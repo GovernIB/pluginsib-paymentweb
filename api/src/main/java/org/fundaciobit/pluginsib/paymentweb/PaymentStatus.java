@@ -7,61 +7,61 @@ package org.fundaciobit.pluginsib.paymentweb;
  */
 public class PaymentStatus {
 
-  public static final int STATUS_INPROGRESS = 0;
+	public static final int STATUS_INPROGRESS = 0;
 
-  /**
-   * Payment authorisation was successfully completed.
-   */
-  public static final int STATUS_AUTHORISED = 1;
+	/**
+	 * Payment authorisation was successfully completed.
+	 */
+	public static final int STATUS_AUTHORISED = 1;
 
-  /**
-   * Payment was: - refused - fail authorisation - error
-   */
-  public static final int STATUS_ERROR = -1;
+	/**
+	 * Payment was: - refused - fail authorisation - error
+	 */
+	public static final int STATUS_ERROR = -1;
 
-  /**
-   * Payment cancelled
-   */
-  public static final int STATUS_CANCELLED = -2;
+	/**
+	 * Payment cancelled
+	 */
+	public static final int STATUS_CANCELLED = -2;
 
-  int status = STATUS_INPROGRESS;
+	int status = STATUS_INPROGRESS;
 
-  String paymentReference;
+	String paymentReference;
 
-  String errorMsg;
+	String errorMsg;
 
-  String paymentMethod;
+	String paymentMethod;
 
-  public int getStatus() {
-    return status;
-  }
+	public int getStatus() {
+		return status;
+	}
 
-  public void setStatus(int status) {
-    this.status = status;
-  }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-  public String getPaymentReference() {
-    return paymentReference;
-  }
+	public String getPaymentReference() {
+		return paymentReference;
+	}
 
-  public void setPaymentReference(String paymentReference) {
-    this.paymentReference = paymentReference;
-  }
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
+	}
 
-  public String getErrorMsg() {
-    return errorMsg;
-  }
+	public String getErrorMsg() {
+		return errorMsg;
+	}
 
-  public void setErrorMsg(String errorMsg) {
-    this.errorMsg = errorMsg;
-  }
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
 
-  public String getPaymentMethod() {
-    return paymentMethod;
-  }
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
 
-  public void setPaymentMethod(String paymentMethod) {
-    this.paymentMethod = paymentMethod;
-  }
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
 }

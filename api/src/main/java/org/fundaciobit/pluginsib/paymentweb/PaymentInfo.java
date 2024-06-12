@@ -9,144 +9,138 @@ import java.util.Locale;
  *
  */
 public class PaymentInfo {
-  
-  long paymentID;
 
-  String descriptionProduct;
-  
-  float amount;
-  
-  /**
-   * http://www.currency-iso.org/en/home/tables/table-a1.html
-   */
-  String currencyCodeISO4217;
-  
-  // Comprador
-  Locale shopperLocale;
-  
-  // Comprador
-  String shopperEmail;
-  
-  // Comprador
-  String shopperName;
-  
-  
+	long paymentID;
 
-  String returnUrl;
-  
-  // Nom Venedor
-  String sellerName;
-  
-  String sellerUrl;
-  
-  Date expireDate;
+	String descriptionProduct;
 
-  public String getDescriptionProduct() {
-    return descriptionProduct;
-  }
+	float amount;
 
-  public void setDescriptionProduct(String descriptionProduct) {
-    this.descriptionProduct = descriptionProduct;
-  }
+	/**
+	 * http://www.currency-iso.org/en/home/tables/table-a1.html
+	 */
+	String currencyCodeISO4217;
 
-  public float getAmount() {
-    return amount;
-  }
+	// Comprador
+	Locale shopperLocale;
 
-  public void setAmount(float amount) {
-    this.amount = amount;
-  }
+	// Comprador
+	String shopperEmail;
 
-  public String getCurrencyCodeISO4217() {
-    return currencyCodeISO4217;
-  }
+	// Comprador
+	String shopperName;
 
-  public void setCurrencyCodeISO4217(String currencyCodeISO4217) {
-    this.currencyCodeISO4217 = currencyCodeISO4217;
-  }
+	String returnUrl;
 
-  public Locale getShopperLocale() {
-    return shopperLocale;
-  }
+	// Nom Venedor
+	String sellerName;
 
-  public void setShopperLocale(Locale shopperLocale) {
-    this.shopperLocale = shopperLocale;
-  }
+	String sellerUrl;
 
-  public String getShopperEmail() {
-    return shopperEmail;
-  }
+	Date expireDate;
 
-  public void setShopperEmail(String shopperEmail) {
-    this.shopperEmail = shopperEmail;
-  }
+	public String getDescriptionProduct() {
+		return descriptionProduct;
+	}
 
-  public String getReturnUrl() {
-    return returnUrl;
-  }
+	public void setDescriptionProduct(String descriptionProduct) {
+		this.descriptionProduct = descriptionProduct;
+	}
 
-  public void setReturnUrl(String returnUrl) {
-    this.returnUrl = returnUrl;
-  }
+	public float getAmount() {
+		return amount;
+	}
 
-  public Date getExpireDate() {
-    return expireDate;
-  }
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
 
-  public void setExpireDate(Date expireDate) {
-    this.expireDate = expireDate;
-  }
+	public String getCurrencyCodeISO4217() {
+		return currencyCodeISO4217;
+	}
 
-  public String getSellerName() {
-    return sellerName;
-  }
+	public void setCurrencyCodeISO4217(String currencyCodeISO4217) {
+		this.currencyCodeISO4217 = currencyCodeISO4217;
+	}
 
-  public void setSellerName(String sellerName) {
-    this.sellerName = sellerName;
-  }
-  
-  
+	public Locale getShopperLocale() {
+		return shopperLocale;
+	}
 
-  public String getSellerUrl() {
-    return sellerUrl;
-  }
+	public void setShopperLocale(Locale shopperLocale) {
+		this.shopperLocale = shopperLocale;
+	}
 
-  public void setSellerUrl(String sellerUrl) {
-    this.sellerUrl = sellerUrl;
-  }
+	public String getShopperEmail() {
+		return shopperEmail;
+	}
 
-  public String getShopperName() {
-    return shopperName;
-  }
+	public void setShopperEmail(String shopperEmail) {
+		this.shopperEmail = shopperEmail;
+	}
 
-  public void setShopperName(String shopperName) {
-    this.shopperName = shopperName;
-  }
-  
-  public long getPaymentID() {
-    return paymentID;
-  }
+	public String getReturnUrl() {
+		return returnUrl;
+	}
 
-  public void setPaymentID(long paymentID) {
-    this.paymentID = paymentID;
-  }
-  
-  
+	public void setReturnUrl(String returnUrl) {
+		this.returnUrl = returnUrl;
+	}
 
-  /**
-   * 
-   * @return
-   */
-  public static synchronized long generateUniqueSignaturesSetID() {
-    long id;
-    
-    id = (System.currentTimeMillis() * 1000000L) + System.nanoTime() % 1000000L;
-    try {
-      Thread.sleep(10);
-    } catch (InterruptedException e) {
-    }
-    
-    return id;
-  }
+	public Date getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
+	}
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+	public String getSellerUrl() {
+		return sellerUrl;
+	}
+
+	public void setSellerUrl(String sellerUrl) {
+		this.sellerUrl = sellerUrl;
+	}
+
+	public String getShopperName() {
+		return shopperName;
+	}
+
+	public void setShopperName(String shopperName) {
+		this.shopperName = shopperName;
+	}
+
+	public long getPaymentID() {
+		return paymentID;
+	}
+
+	public void setPaymentID(long paymentID) {
+		this.paymentID = paymentID;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static synchronized long generateUniqueSignaturesSetID() {
+		long id;
+
+		id = (System.currentTimeMillis() * 1000000L) + System.nanoTime() % 1000000L;
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+		}
+
+		return id;
+	}
 
 }

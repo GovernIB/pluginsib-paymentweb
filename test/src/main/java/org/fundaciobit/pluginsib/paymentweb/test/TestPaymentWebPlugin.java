@@ -25,249 +25,215 @@ import org.fundaciobit.pluginsib.paymentweb.StartPaymentResult;
  */
 public class TestPaymentWebPlugin extends AbstractPaymentWeb {
 
-  public static final String TEST_PAYMENTWEB_BASE_PROPERTY = PAYMENTWEB_BASE_PROPERTY
-      + "test.";
-  
-  
-  public TestPaymentWebPlugin() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+	public static final String TEST_PAYMENTWEB_BASE_PROPERTY = PAYMENTWEB_BASE_PROPERTY + "test.";
 
-  public TestPaymentWebPlugin(String propertyKeyBase, Properties properties) {
-    super(propertyKeyBase, properties);
-    // TODO Auto-generated constructor stub
-  }
+	public TestPaymentWebPlugin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-  public TestPaymentWebPlugin(String propertyKeyBase) {
-    super(propertyKeyBase);
-    // TODO Auto-generated constructor stub
-  }
+	public TestPaymentWebPlugin(String propertyKeyBase, Properties properties) {
+		super(propertyKeyBase, properties);
+		// TODO Auto-generated constructor stub
+	}
 
-  @Override
-  public String getName(Locale locale) throws Exception {
-    return "Test";
-  }
+	public TestPaymentWebPlugin(String propertyKeyBase) {
+		super(propertyKeyBase);
+		// TODO Auto-generated constructor stub
+	}
 
-  @Override
-  public StartPaymentResult startPayment(HttpServletRequest request,
-      String absoluteAddress, String relativeAddress, PaymentInfo paymentInfo)
-      throws Exception {
+	@Override
+	public String getName(Locale locale) throws Exception {
+		return "Test";
+	}
 
-    final long paymentID = paymentInfo.getPaymentID();
+	@Override
+	public StartPaymentResult startPayment(HttpServletRequest request, String absoluteAddress, String relativeAddress,
+			PaymentInfo paymentInfo) throws Exception {
 
-    registryPayment(paymentID, paymentInfo);
+		final long paymentID = paymentInfo.getPaymentID();
 
-    String redirectUrl = relativeAddress + paymentID + "/"  +  START;
+		registryPayment(paymentID, paymentInfo);
 
-    boolean relativeUrl = true;
+		String redirectUrl = relativeAddress + paymentID + "/" + START;
 
-    return new StartPaymentResult(redirectUrl, relativeUrl);
+		boolean relativeUrl = true;
 
-  }
+		return new StartPaymentResult(redirectUrl, relativeUrl);
 
-  @Override
-  public void controllerGET(HttpServletRequest request,
-      HttpServletResponse response, String absoluteAddress,
-      String relativeAddress, long paymentID, String query) throws Exception {
+	}
 
-    log.error(" XYZ ZZZZZZZZZZZZZZ   query ==> |" + query + "|");
-    log.error(" XYZ ZZZZZZZZZZZZZZ   query.startsWith(START) ==> |" + query.startsWith(START) + "|");
-    log.error(" XYZ ZZZZZZZZZZZZZZ    query.equals(START) ==> |" + query.equals(START) + "|");
-    if (query.startsWith(START)) {
-      startGet(request, response, absoluteAddress, relativeAddress, paymentID);
-    } else if (query.startsWith(FINAL)) {
-      finalPost(request, response, absoluteAddress, relativeAddress, paymentID);
-    } else {
-      final String type = "GET";
-      sendNotFound(response, absoluteAddress, relativeAddress, paymentID,
-          query, type);
-    }
+	@Override
+	public void controllerGET(HttpServletRequest request, HttpServletResponse response, String absoluteAddress,
+			String relativeAddress, long paymentID, String query) throws Exception {
 
-  }
+		log.error(" XYZ ZZZZZZZZZZZZZZ   query ==> |" + query + "|");
+		log.error(" XYZ ZZZZZZZZZZZZZZ   query.startsWith(START) ==> |" + query.startsWith(START) + "|");
+		log.error(" XYZ ZZZZZZZZZZZZZZ    query.equals(START) ==> |" + query.equals(START) + "|");
+		if (query.startsWith(START)) {
+			startGet(request, response, absoluteAddress, relativeAddress, paymentID);
+		} else if (query.startsWith(FINAL)) {
+			finalPost(request, response, absoluteAddress, relativeAddress, paymentID);
+		} else {
+			final String type = "GET";
+			sendNotFound(response, absoluteAddress, relativeAddress, paymentID, query, type);
+		}
 
-  private void sendNotFound(HttpServletResponse response,
-      String absoluteAddress, String relativeAddress, long paymentID,
-      String query, final String type) throws IOException {
-    log.error(" ===  PAYMENT " + type + " ===");
-    log.error(" absoluteAddress ==> |" + absoluteAddress + "|");
-    log.error(" relativeAddress ==> |" + relativeAddress + "|");
-    log.error(" paymentID ==> |" + paymentID + "|");
-    log.error(" query ==> |" + query + "|");
+	}
 
-    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-  }
+	private void sendNotFound(HttpServletResponse response, String absoluteAddress, String relativeAddress,
+			long paymentID, String query, final String type) throws IOException {
+		log.error(" ===  PAYMENT " + type + " ===");
+		log.error(" absoluteAddress ==> |" + absoluteAddress + "|");
+		log.error(" relativeAddress ==> |" + relativeAddress + "|");
+		log.error(" paymentID ==> |" + paymentID + "|");
+		log.error(" query ==> |" + query + "|");
 
-  @Override
-  public void controllerPOST(HttpServletRequest request,
-      HttpServletResponse response, String absoluteAddress,
-      String relativeAddress, long paymentID, String query) throws Exception {
+		response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	}
 
-    if (query.startsWith(FINAL)) {
-      finalPost(request, response, absoluteAddress, relativeAddress, paymentID);
-    } else {
-      final String type = "POST";
-      sendNotFound(response, absoluteAddress, relativeAddress, paymentID,
-          query, type);
-    }
-  }
+	@Override
+	public void controllerPOST(HttpServletRequest request, HttpServletResponse response, String absoluteAddress,
+			String relativeAddress, long paymentID, String query) throws Exception {
 
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
-  // ---------------------------------- FINAL ---------------------------------
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
+		if (query.startsWith(FINAL)) {
+			finalPost(request, response, absoluteAddress, relativeAddress, paymentID);
+		} else {
+			final String type = "POST";
+			sendNotFound(response, absoluteAddress, relativeAddress, paymentID, query, type);
+		}
+	}
 
-  protected static final String FINAL = "final";
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// ---------------------------------- FINAL ---------------------------------
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
 
-  protected void finalPost(HttpServletRequest request,
-      HttpServletResponse response, String absoluteAddress,
-      String relativeAddress, Long paymentID) throws Exception {
+	protected static final String FINAL = "final";
 
-    PaymentInfo paymentInfo = getPaymentInfo(paymentID);
+	protected void finalPost(HttpServletRequest request, HttpServletResponse response, String absoluteAddress,
+			String relativeAddress, Long paymentID) throws Exception {
 
-    
-    //  XYZ TODO Eliminar
-    Map<String, String[]> parameters = request.getParameterMap();
+		PaymentInfo paymentInfo = getPaymentInfo(paymentID);
 
-    if (parameters.size() == 0) {
-      log.info("PagamentID[" + paymentID + "] = >> SENSE PARAMETRES");
-    } else {
+		// XYZ TODO Eliminar
+		Map<String, String[]> parameters = request.getParameterMap();
 
-      log.info("LLISTA PARAMETRES PAYMENTID=" + paymentID);
+		if (parameters.size() == 0) {
+			log.info("PagamentID[" + paymentID + "] = >> SENSE PARAMETRES");
+		} else {
 
-      for (String parameter : parameters.keySet()) {
-        String[] values = parameters.get(parameter);
-        log.info("       - " + parameter + " ==>> |" + values[0] + "|");
-      }
-    }
+			log.info("LLISTA PARAMETRES PAYMENTID=" + paymentID);
 
+			for (String parameter : parameters.keySet()) {
+				String[] values = parameters.get(parameter);
+				log.info("       - " + parameter + " ==>> |" + values[0] + "|");
+			}
+		}
 
-    
+		String statusStr = request.getParameter("status");
+		long statusID = Long.parseLong(statusStr);
 
-    String statusStr = request.getParameter("status");
-    long statusID = Long.parseLong(statusStr);
+		PaymentStatus status = getPaymentStatus(paymentID);
 
-    PaymentStatus status = getPaymentStatus(paymentID);
+		if (PaymentStatus.STATUS_AUTHORISED == statusID) {
+			status.setStatus(PaymentStatus.STATUS_AUTHORISED);
+			status.setPaymentReference(request.getParameter("pspReference"));
+			status.setPaymentMethod(request.getParameter("paymentMethod"));
 
-    if (PaymentStatus.STATUS_AUTHORISED == statusID) {
-      status.setStatus(PaymentStatus.STATUS_AUTHORISED);
-      status.setPaymentReference(request.getParameter("pspReference"));
-      status.setPaymentMethod(request.getParameter("paymentMethod"));
-      
-      
-    } else if (PaymentStatus.STATUS_ERROR == statusID) {
-      status.setStatus(PaymentStatus.STATUS_ERROR);
-      
-      String error = request.getParameter("error");
-      // TODO Traduir !!!!!
-      status
-          .setErrorMsg("S'ha produit el següent error durant el pagament:" + error );
-    } else if (PaymentStatus.STATUS_CANCELLED == statusID) {
+		} else if (PaymentStatus.STATUS_ERROR == statusID) {
+			status.setStatus(PaymentStatus.STATUS_ERROR);
 
-      status.setStatus(PaymentStatus.STATUS_CANCELLED);
-      // TODO Traduir !!!!!
-      status.setErrorMsg("L'usuari ha cancel·lat el pagament");
-    }  else {
-      status.setStatus(PaymentStatus.STATUS_ERROR);
-      
-      String msg = "Final de pagament amb estat desconegut (|"
-          + statusStr + "|)."; // TODO Traduir !!!!!
-      log.error(msg, new Exception(msg));
-      status.setErrorMsg(msg);
-    }
+			String error = request.getParameter("error");
+			// TODO Traduir !!!!!
+			status.setErrorMsg("S'ha produit el següent error durant el pagament:" + error);
+		} else if (PaymentStatus.STATUS_CANCELLED == statusID) {
 
-    response.sendRedirect(paymentInfo.getReturnUrl());
+			status.setStatus(PaymentStatus.STATUS_CANCELLED);
+			// TODO Traduir !!!!!
+			status.setErrorMsg("L'usuari ha cancel·lat el pagament");
+		} else {
+			status.setStatus(PaymentStatus.STATUS_ERROR);
 
-  }
+			String msg = "Final de pagament amb estat desconegut (|" + statusStr + "|)."; // TODO Traduir !!!!!
+			log.error(msg, new Exception(msg));
+			status.setErrorMsg(msg);
+		}
 
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
-  // ---------------------------------- START ---------------------------------
-  // --------------------------------------------------------------------------
-  // --------------------------------------------------------------------------
+		response.sendRedirect(paymentInfo.getReturnUrl());
 
-  protected static final String START = "start";
+	}
 
-  protected void startGet(HttpServletRequest request,
-      HttpServletResponse response, String absoluteAddress,
-      String relativeAddress, Long paymentID) throws Exception {
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// ---------------------------------- START ---------------------------------
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
 
-    PaymentInfo paymentInfo = getPaymentInfo(paymentID);
+	protected static final String START = "start";
 
-    // Set correct character encoding
-    response.setCharacterEncoding("UTF-8");
+	protected void startGet(HttpServletRequest request, HttpServletResponse response, String absoluteAddress,
+			String relativeAddress, Long paymentID) throws Exception {
 
-    String html = "<html>\n" 
-                 + "<body>\n"
-                 + "<h2>Dades de Pagament</h2>\n"
-       // AQUI DADES DE PAGAMENT
-       
-        +  "getAmount: " + paymentInfo.getAmount() + "<br/>\n"
-        +  "getCurrencyCodeISO4217: " + paymentInfo.getCurrencyCodeISO4217() + "<br/>\n"
-        +  "getDescriptionProduct: " + paymentInfo.getDescriptionProduct() + "<br/>\n"
-        +  "getExpireDate: " + paymentInfo.getExpireDate() + "<br/>\n"
-        +  "getPaymentID: " + paymentInfo.getPaymentID() + "<br/>\n"
-        +  "getReturnUrl: " + paymentInfo.getReturnUrl() + "<br/>\n"
-        +  "getSellerName: " + paymentInfo.getSellerName() + "<br/>\n"
-        +  "getShopperEmail: " + paymentInfo.getShopperEmail() + "<br/>\n"
-        +  "getShopperLocale: " + paymentInfo.getShopperLocale() + "<br/>\n"
-        +  "getShopperName: " + paymentInfo.getShopperName() + "<br/><br/>\n";
+		PaymentInfo paymentInfo = getPaymentInfo(paymentID);
 
+		// Set correct character encoding
+		response.setCharacterEncoding("UTF-8");
 
-    
-    
-    final int[] estats = { PaymentStatus.STATUS_AUTHORISED, PaymentStatus.STATUS_CANCELLED,
-        PaymentStatus.STATUS_ERROR, PaymentStatus.STATUS_INPROGRESS};
-    final String[] estatsStr = { "STATUS_AUTHORISED", "STATUS_CANCELLED",
-        "STATUS_ERROR", "STATUS_INPROGRESS" };
-    for (int i = 0; i < estats.length; i++) {
-      
-    
-      html = html + "<table border=1px><tr><td> <form action=\""
-        + absoluteAddress  + paymentID + "/" + FINAL
-        + "\" method=\"POST\" >\n"
-        + "     <input type=\"hidden\" name=\"status\" value=\""
-        + estats[i]
-        + "\" />\n";
+		String html = "<html>\n" + "<body>\n" + "<h2>Dades de Pagament</h2>\n"
+		// AQUI DADES DE PAGAMENT
 
-        if (estats[i] == PaymentStatus.STATUS_ERROR) {
-         html = html + " Error:   <input type=\"text\" name=\"error\" value=\""
-            + "El numero de la targeta es incorrecte"
-            + "\" /> <br/>\n";
-        } else if(estats[i] == PaymentStatus.STATUS_AUTHORISED) {
-          html = html + " paymentMethod:   <input type=\"text\" name=\"paymentMethod\" value=\""
-              + "mc" + "\" /> <br/>\n"
-              + " pspReference:   <input type=\"text\" name=\"pspReference\" value=\""
-              + System.currentTimeMillis()
-              + "\" /> <br/>\n";
-          
-          
-        }
-      
+				+ "getAmount: " + paymentInfo.getAmount() + "<br/>\n" + "getCurrencyCodeISO4217: "
+				+ paymentInfo.getCurrencyCodeISO4217() + "<br/>\n" + "getDescriptionProduct: "
+				+ paymentInfo.getDescriptionProduct() + "<br/>\n" + "getExpireDate: " + paymentInfo.getExpireDate()
+				+ "<br/>\n" + "getPaymentID: " + paymentInfo.getPaymentID() + "<br/>\n" + "getReturnUrl: "
+				+ paymentInfo.getReturnUrl() + "<br/>\n" + "getSellerName: " + paymentInfo.getSellerName() + "<br/>\n"
+				+ "getShopperEmail: " + paymentInfo.getShopperEmail() + "<br/>\n" + "getShopperLocale: "
+				+ paymentInfo.getShopperLocale() + "<br/>\n" + "getShopperName: " + paymentInfo.getShopperName()
+				+ "<br/><br/>\n";
 
-        html = html    + "<input type =\"submit\" name=\"" + estatsStr[i] + "\" value=\"" + estatsStr[i] + "\" />\n"
-        + "</form></td></tr></table><br/>\n";
-    }
-    
-    html = html + " </body>\n" + " </html>\n";
+		final int[] estats = { PaymentStatus.STATUS_AUTHORISED, PaymentStatus.STATUS_CANCELLED,
+				PaymentStatus.STATUS_ERROR, PaymentStatus.STATUS_INPROGRESS };
+		final String[] estatsStr = { "STATUS_AUTHORISED", "STATUS_CANCELLED", "STATUS_ERROR", "STATUS_INPROGRESS" };
+		for (int i = 0; i < estats.length; i++) {
 
-    response.getWriter().print(html);
+			html = html + "<table border=1px><tr><td> <form action=\"" + absoluteAddress + paymentID + "/" + FINAL
+					+ "\" method=\"POST\" >\n" + "     <input type=\"hidden\" name=\"status\" value=\"" + estats[i]
+					+ "\" />\n";
 
-  }
+			if (estats[i] == PaymentStatus.STATUS_ERROR) {
+				html = html + " Error:   <input type=\"text\" name=\"error\" value=\""
+						+ "El numero de la targeta es incorrecte" + "\" /> <br/>\n";
+			} else if (estats[i] == PaymentStatus.STATUS_AUTHORISED) {
+				html = html + " paymentMethod:   <input type=\"text\" name=\"paymentMethod\" value=\"" + "mc"
+						+ "\" /> <br/>\n" + " pspReference:   <input type=\"text\" name=\"pspReference\" value=\""
+						+ System.currentTimeMillis() + "\" /> <br/>\n";
 
-  /**
-   * Computes the Base64 encoded signature using the HMAC algorithm with the
-   * SHA-1 hashing function.
-   */
-  protected static String calculateHMAC(String hmacKey, String signingString)
-      throws GeneralSecurityException, UnsupportedEncodingException {
-    SecretKeySpec keySpec = new SecretKeySpec(hmacKey.getBytes(), "HmacSHA1");
-    Mac mac = Mac.getInstance("HmacSHA1");
-    mac.init(keySpec);
+			}
 
-    byte[] result = mac.doFinal(signingString.getBytes("UTF-8"));
-    return Base64.encodeBase64String(result);
-  }
+			html = html + "<input type =\"submit\" name=\"" + estatsStr[i] + "\" value=\"" + estatsStr[i] + "\" />\n"
+					+ "</form></td></tr></table><br/>\n";
+		}
+
+		html = html + " </body>\n" + " </html>\n";
+
+		response.getWriter().print(html);
+
+	}
+
+	/**
+	 * Computes the Base64 encoded signature using the HMAC algorithm with the SHA-1
+	 * hashing function.
+	 */
+	protected static String calculateHMAC(String hmacKey, String signingString)
+			throws GeneralSecurityException, UnsupportedEncodingException {
+		SecretKeySpec keySpec = new SecretKeySpec(hmacKey.getBytes(), "HmacSHA1");
+		Mac mac = Mac.getInstance("HmacSHA1");
+		mac.init(keySpec);
+
+		byte[] result = mac.doFinal(signingString.getBytes("UTF-8"));
+		return Base64.encodeBase64String(result);
+	}
 
 }

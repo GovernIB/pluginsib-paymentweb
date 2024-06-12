@@ -22,14 +22,13 @@ import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.util.Arrays;
 import org.json.JSONObject;
 
-
 public class ApiMacSha256 {
 
 	/** Numero de bytes para obtener cadenas multiplos de 8 */
 	private final short OCHO = 8;
 
 	/** Constante de array de inicialización */
-	private final byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0};
+	private final byte[] IV = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 	/** Array de DatosEntrada */
 	private JSONObject jsonObj = new JSONObject();
@@ -46,20 +45,25 @@ public class ApiMacSha256 {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	//////////// 					FUNCIONES AUXILIARES: 											  ///////////
+	//////////// FUNCIONES AUXILIARES: ///////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
-	/** 3DES Function 
-	 * @throws InvalidKeyException 
-	 * @throws NoSuchPaddingException 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidAlgorithmParameterException 
-	 * @throws UnsupportedEncodingException 
-	 * @throws BadPaddingException 
-	 * @throws IllegalBlockSizeException */
-	public byte [] encrypt_3DES(final String claveHex, final String datos) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException {
-		byte [] ciphertext = null;
+	/**
+	 * 3DES Function
+	 * 
+	 * @throws InvalidKeyException
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws UnsupportedEncodingException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 */
+	public byte[] encrypt_3DES(final String claveHex, final String datos) throws InvalidKeyException,
+			NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException,
+			UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException {
+		byte[] ciphertext = null;
 		// Crea la clave
 		DESedeKeySpec desKeySpec = new DESedeKeySpec(toByteArray(claveHex));
 		SecretKey desKey = new SecretKeySpec(desKeySpec.getKey(), "DESede");
@@ -79,24 +83,27 @@ public class ApiMacSha256 {
 		for (int i = 0; i < numeroCerosNecesarios; i++) {
 			array.write(0);
 		}
-		byte [] cleartext = array.toByteArray();
+		byte[] cleartext = array.toByteArray();
 		// Encripta el texto
 		ciphertext = desCipher.doFinal(cleartext);
 		return ciphertext;
 	}
 
-	/** Base64 y HEX Functions 
-	 * @throws UnsupportedEncodingException */
-	public String encodeB64String(final byte [] data) throws UnsupportedEncodingException {
+	/**
+	 * Base64 y HEX Functions
+	 * 
+	 * @throws UnsupportedEncodingException
+	 */
+	public String encodeB64String(final byte[] data) throws UnsupportedEncodingException {
 		return new String(Base64.encodeBase64(data), "UTF-8");
 	}
 
-	public byte [] encodeB64(final byte [] data) {
+	public byte[] encodeB64(final byte[] data) {
 		return Base64.encodeBase64(data);
 	}
 
-	public byte [] encodeB64UrlSafe(final byte [] data) {
-		byte [] encode = Base64.encodeBase64(data);
+	public byte[] encodeB64UrlSafe(final byte[] data) {
+		byte[] encode = Base64.encodeBase64(data);
 		for (int i = 0; i < encode.length; i++) {
 			if (encode[i] == '+') {
 				encode[i] = '-';
@@ -107,16 +114,16 @@ public class ApiMacSha256 {
 		return encode;
 	}
 
-	public String decodeB64String(final byte [] data) throws UnsupportedEncodingException {
+	public String decodeB64String(final byte[] data) throws UnsupportedEncodingException {
 		return new String(Base64.decodeBase64(data), "UTF-8");
 	}
 
-	public byte [] decodeB64(final byte [] data) {
+	public byte[] decodeB64(final byte[] data) {
 		return Base64.decodeBase64(data);
 	}
 
-	public byte [] decodeB64UrlSafe(final byte [] data) {
-		byte [] encode = Arrays.copyOf(data, data.length);
+	public byte[] decodeB64UrlSafe(final byte[] data) {
+		byte[] encode = Arrays.copyOf(data, data.length);
 		for (int i = 0; i < encode.length; i++) {
 			if (encode[i] == '-') {
 				encode[i] = '+';
@@ -127,7 +134,7 @@ public class ApiMacSha256 {
 		return Base64.decodeBase64(encode);
 	}
 
-	public String toHexadecimal(byte [] datos, int numBytes) {
+	public String toHexadecimal(byte[] datos, int numBytes) {
 		String resultado = "";
 		ByteArrayInputStream input = new ByteArrayInputStream(datos, 0, numBytes);
 		String cadAux;
@@ -142,41 +149,44 @@ public class ApiMacSha256 {
 		return resultado;
 	}
 
-	public byte[] toByteArray(String cadena){
-		//Si es impar se añade un 0 delante
-		if(cadena.length() % 2 != 0)
-			cadena = "0"+cadena;
-			
-		int longitud = cadena.length()/2;
+	public byte[] toByteArray(String cadena) {
+		// Si es impar se añade un 0 delante
+		if (cadena.length() % 2 != 0)
+			cadena = "0" + cadena;
+
+		int longitud = cadena.length() / 2;
 		int posicion = 0;
-		String cadenaAux =null;
+		String cadenaAux = null;
 		ByteArrayOutputStream salida = new ByteArrayOutputStream();
-		for(int i=0 ;i < longitud ;i++)
-		{
-			cadenaAux = cadena.substring(posicion,posicion+2);
-			posicion +=2;
-			salida.write((char)Integer.parseInt(cadenaAux,16));
+		for (int i = 0; i < longitud; i++) {
+			cadenaAux = cadena.substring(posicion, posicion + 2);
+			posicion += 2;
+			salida.write((char) Integer.parseInt(cadenaAux, 16));
 		}
 		return salida.toByteArray();
 	}
 
-	/** MAC Function 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidKeyException 
-	 * @throws UnsupportedEncodingException 
-	 * @throws IllegalStateException */
-	public byte [] mac256(final String dsMerchantParameters, final byte [] secretKo) throws NoSuchAlgorithmException, InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
+	/**
+	 * MAC Function
+	 * 
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
+	 * @throws UnsupportedEncodingException
+	 * @throws IllegalStateException
+	 */
+	public byte[] mac256(final String dsMerchantParameters, final byte[] secretKo)
+			throws NoSuchAlgorithmException, InvalidKeyException, IllegalStateException, UnsupportedEncodingException {
 		// Se hace el MAC con la clave de la operación "Ko" y se codifica en BASE64
 		Mac sha256HMAC = Mac.getInstance("HmacSHA256");
 		SecretKeySpec secretKey = new SecretKeySpec(secretKo, "HmacSHA256");
 		sha256HMAC.init(secretKey);
-		byte [] hash = sha256HMAC.doFinal(dsMerchantParameters.getBytes("UTF-8"));
+		byte[] hash = sha256HMAC.doFinal(dsMerchantParameters.getBytes("UTF-8"));
 		return hash;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	//////////// 		FUNCIONES PARA LA GENERACIÓN DEL FORMULARIO DE PAGO: 				 ////////////
+	//////////// FUNCIONES PARA LA GENERACIÓN DEL FORMULARIO DE PAGO: ////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	public String getOrder() {
@@ -193,22 +203,26 @@ public class ApiMacSha256 {
 		return res;
 	}
 
-	public String createMerchantSignature(final String claveComercio) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+	public String createMerchantSignature(final String claveComercio)
+			throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException,
+			NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
 		String merchantParams = createMerchantParameters();
 
-		byte [] clave = decodeB64(claveComercio.getBytes("UTF-8"));
+		byte[] clave = decodeB64(claveComercio.getBytes("UTF-8"));
 		String secretKc = toHexadecimal(clave, clave.length);
-		byte [] secretKo = encrypt_3DES(secretKc, getOrder());
+		byte[] secretKo = encrypt_3DES(secretKc, getOrder());
 
 		// Se hace el MAC con la clave de la operación "Ko" y se codifica en BASE64
-		byte [] hash = mac256(merchantParams, secretKo);
+		byte[] hash = mac256(merchantParams, secretKo);
 		String res = encodeB64String(hash);
 		return res;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	//////////// FUNCIONES PARA LA RECEPCIÓN DE DATOS DE PAGO (Notif, URLOK y URLKO): ////////////
+	//////////// FUNCIONES PARA LA RECEPCIÓN DE DATOS DE PAGO (Notif, URLOK y
+	////////////////////////////////////////////////////////////////////////////////////////////// URLKO):
+	////////////////////////////////////////////////////////////////////////////////////////////// ////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -242,60 +256,73 @@ public class ApiMacSha256 {
 	}
 
 	public String decodeMerchantParameters(final String datos) throws UnsupportedEncodingException {
-		byte [] res = decodeB64UrlSafe(datos.getBytes("UTF-8"));
+		byte[] res = decodeB64UrlSafe(datos.getBytes("UTF-8"));
 		String params = new String(res, "UTF-8");
 		jsonObj = new JSONObject(params);
 		return new String(res, "UTF-8");
 	}
 
-	public String createMerchantSignatureNotif(final String claveComercio, final String merchantParams) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
-		byte [] clave = decodeB64(claveComercio.getBytes("UTF-8"));
+	public String createMerchantSignatureNotif(final String claveComercio, final String merchantParams)
+			throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException,
+			NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+		byte[] clave = decodeB64(claveComercio.getBytes("UTF-8"));
 		String secretKc = toHexadecimal(clave, clave.length);
-		byte [] secretKo = encrypt_3DES(secretKc, getOrderNotif());
+		byte[] secretKo = encrypt_3DES(secretKc, getOrderNotif());
 
 		// Se hace el MAC con la clave de la operación "Ko" y se codifica en BASE64
-		byte [] hash = mac256(merchantParams, secretKo);
-		byte [] res = encodeB64UrlSafe(hash);
+		byte[] hash = mac256(merchantParams, secretKo);
+		byte[] res = encodeB64UrlSafe(hash);
 		return new String(res, "UTF-8");
 	}
 
-	/******  Notificaciones SOAP ENTRADA *****
-	 * @throws UnsupportedEncodingException 
-	 * @throws IllegalStateException 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidKeyException 
-	 * @throws BadPaddingException 
-	 * @throws IllegalBlockSizeException 
-	 * @throws InvalidAlgorithmParameterException 
-	 * @throws NoSuchPaddingException */
-	public String createMerchantSignatureNotifSOAPRequest(final String claveComercio, final String request) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
-		byte [] clave = decodeB64(claveComercio.getBytes("UTF-8"));
+	/******
+	 * Notificaciones SOAP ENTRADA *****
+	 * 
+	 * @throws UnsupportedEncodingException
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws NoSuchPaddingException
+	 */
+	public String createMerchantSignatureNotifSOAPRequest(final String claveComercio, final String request)
+			throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException,
+			NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+		byte[] clave = decodeB64(claveComercio.getBytes("UTF-8"));
 		String secretKc = toHexadecimal(clave, clave.length);
-		byte [] secretKo = encrypt_3DES(secretKc, getOrderNotifSOAP(request));
-		
+		byte[] secretKo = encrypt_3DES(secretKc, getOrderNotifSOAP(request));
+
 		// Se hace el MAC con la clave de la operación "Ko" y se codifica en BASE64
-		byte [] hash = mac256(getRequestNotifSOAP(request), secretKo);
-		byte [] res = encodeB64(hash);
+		byte[] hash = mac256(getRequestNotifSOAP(request), secretKo);
+		byte[] res = encodeB64(hash);
 		return new String(res, "UTF-8");
 	}
 
-	/******  Notificaciones SOAP SALIDA *****
-	 * @throws UnsupportedEncodingException 
-	 * @throws IllegalStateException 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidKeyException 
-	 * @throws BadPaddingException 
-	 * @throws IllegalBlockSizeException 
-	 * @throws InvalidAlgorithmParameterException 
-	 * @throws NoSuchPaddingException */
-	public String createMerchantSignatureNotifSOAPResponse(final String claveComercio, final String response, final String numPedido) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
-		byte [] clave = decodeB64(claveComercio.getBytes("UTF-8"));
+	/******
+	 * Notificaciones SOAP SALIDA *****
+	 * 
+	 * @throws UnsupportedEncodingException
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws NoSuchPaddingException
+	 */
+	public String createMerchantSignatureNotifSOAPResponse(final String claveComercio, final String response,
+			final String numPedido)
+			throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalStateException,
+			NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+		byte[] clave = decodeB64(claveComercio.getBytes("UTF-8"));
 		String secretKc = toHexadecimal(clave, clave.length);
-		byte [] secretKo = encrypt_3DES(secretKc, numPedido);
-		
+		byte[] secretKo = encrypt_3DES(secretKc, numPedido);
+
 		// Se hace el MAC con la clave de la operación "Ko" y se codifica en BASE64
-		byte [] hash = mac256(getResponseNotifSOAP(response), secretKo);
-		byte [] res = encodeB64(hash);
+		byte[] hash = mac256(getResponseNotifSOAP(response), secretKo);
+		byte[] res = encodeB64(hash);
 		return new String(res, "UTF-8");
-	}	
+	}
 }
