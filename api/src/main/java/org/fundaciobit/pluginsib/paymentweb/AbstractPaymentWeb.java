@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.fundaciobit.pluginsib.core.v3.utils.AbstractPluginProperties;
 
 /**

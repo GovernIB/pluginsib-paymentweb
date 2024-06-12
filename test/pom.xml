@@ -1,36 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.fundaciobit.pluginsib.paymentweb</groupId>
   <artifactId>pluginsib-paymentweb-test</artifactId>
   <packaging>jar</packaging>
-  <version>3.0.0-SNAPSHOT</version>
   <name>PluginsIB - PaymentWeb - Test</name>
   <parent>
     <groupId>org.fundaciobit.pluginsib.paymentweb</groupId>
     <artifactId>pluginsib-paymentweb</artifactId>
     <version>3.0.0-SNAPSHOT</version>
   </parent>
-  <repositories>
-    <repository>
-      <id>maven-nuxeo</id>
-      <name>Maven Nuxeo Repository</name>
-      <url>https://maven.nuxeo.org/nexus/content/groups/public/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>codelds</id>
-      <url>https://code.lds.org/nexus/content/groups/main-repo</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.fundaciobit.pluginsib.paymentweb</groupId>
@@ -40,17 +18,6 @@
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.10</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-    </plugins>
-  </build>
 </project>
