@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb.adyen.test;
+package org.fundaciobit.pluginsib.paymentweb.bbva.test;
 
 /**
  * 

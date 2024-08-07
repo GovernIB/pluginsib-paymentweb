@@ -1,4 +1,4 @@
-package org.fundaciobit.plugins.paymentweb.bbva.test;
+package org.fundaciobit.pluginsib.paymentweb.api.test;
 
 /**
  * 
