@@ -122,7 +122,8 @@ public class BBVAPaymentWebPlugin extends AbstractPaymentWeb {
 	protected void notificacioPost(HttpServletRequest request, HttpServletResponse response, String absoluteAddress,
 			String relativeAddress, Long paymentID) throws Exception {
 
-		PaymentInfo paymentInfo = getPaymentInfo(paymentID);
+		@SuppressWarnings("unused")
+        PaymentInfo paymentInfo = getPaymentInfo(paymentID);
 
 		log.info(" XYZ ===============  BBVA NOTIFICACIO " + paymentID + " ==================");
 
